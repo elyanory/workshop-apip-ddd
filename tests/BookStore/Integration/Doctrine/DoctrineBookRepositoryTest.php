@@ -41,23 +41,46 @@ final class DoctrineBookRepositoryTest extends KernelTestCase
 
     public function testAdd(): void
     {
-        $this->markTestSkipped('It\'s your turn now!');
+        /** @var DoctrineBookRepository $repository */
+        $repository = static::getContainer()->get(DoctrineBookRepository::class);
+
+        static::assertEmpty($repository);
+
+        $book = DummyBookFactory::createBook();
+        $repository->add($book);
+
+        static::assertCount(1, $repository);
     }
 
     public function testRemove(): void
     {
-        $this->markTestSkipped('It\'s your turn now!');
+        /** @var DoctrineBookRepository $repository */
+        $repository = static::getContainer()->get(DoctrineBookRepository::class);
+
+        $book = DummyBookFactory::createBook();
+        $repository->add($book);
+
+        static::assertCount(1, $repository);
+
+        $repository->remove($book);
+        static::assertEmpty($repository);
     }
 
     public function testOfId(): void
     {
-        $this->markTestSkipped('It\'s your turn now!');
+        /** @var DoctrineBookRepository $repository */
+        $repository = static::getContainer()->get(DoctrineBookRepository::class);
+
+        static::assertEmpty($repository);
+
+        $book = DummyBookFactory::createBook();
+        $repository->add($book);
+
+        static::assertSame($book, $repository->ofId($book->id));
     }
 
     public function testIterator(): void
     {
-        $this->markTestSkipped('This will work when "add" will be implemented');
-
         /** @var DoctrineBookRepository $repository */
         $repository = static::getContainer()->get(DoctrineBookRepository::class);
 
@@ -79,8 +102,6 @@ final class DoctrineBookRepositoryTest extends KernelTestCase
 
     public function testCount(): void
     {
-        $this->markTestSkipped('This will work when "add" will be implemented');
-
         /** @var DoctrineBookRepository $repository */
         $repository = static::getContainer()->get(DoctrineBookRepository::class);
 
